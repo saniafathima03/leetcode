@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        // Handle overflow case: -2^31 / -1 = 2^31 (overflows 32-bit signed int)
+        if (dividend == INT_MIN && divisor == -1) {
+            return INT_MAX;
+        }
+        
+        // Determine the sign of the result
+        bool isNegative = (dividend < 0) ^ (divisor < 0);
+        
+        // Safely extract absolute values into unsigned integers without using abs()
+        unsigned int absDividend = (dividend == INT_MIN) ? 2147483648U : static_cast<unsigned int>(abs(dividend));
+        unsigned int absDivisor = (divisor == INT_MIN) ? 2147483648U : static_cast<unsigned int>(abs(divisor));
+        
+        unsigned int quotient = 0;
+        
+        // Use bit manipulation to find the quotient
+        for (int i = 31; i >= 0; i--) {
+            // Check if (absDivisor * 2^i) <= absDividend safely using right shift
+            if ((absDividend >> i) >= absDivisor) {
+                quotient += (1U << i);
+                absDividend -= (absDivisor << i);
+            }
+        }
+        
+        // If the result is negative, invert the bits and add 1 (two's complement) 
+        // using unsigned arithmetic to safely convert to signed INT_MIN if necessary
+        if (isNegative) {
+            return static_cast<int>(~quotient + 1);
+        }
+        
+        return static_cast<int>(quotient);
+    }
+};
