@@ -1,0 +1,35 @@
+#include <future>
+
+class Foo {
+private:
+    std::promise<void> p1;
+    std::promise<void> p2;
+
+public:
+    Foo() {
+        
+    }
+
+    void first(function<void()> printFirst) {
+        // printFirst() outputs "first". Do not change or remove this line.
+        printFirst();
+        // Signal that the first method is done
+        p1.set_value();
+    }
+
+    void second(function<void()> printSecond) {
+        // Wait until first method signals completion
+        p1.get_future().wait();
+        // printSecond() outputs "second". Do not change or remove this line.
+        printSecond();
+        // Signal that the second method is done
+        p2.set_value();
+    }
+
+    void third(function<void()> printThird) {
+        // Wait until second method signals completion
+        p2.get_future().wait();
+        // printThird() outputs "third". Do not change or remove this line.
+        printThird();
+    }
+};
