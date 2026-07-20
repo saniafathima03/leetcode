@@ -1,0 +1,19 @@
+class ParkingSystem {
+private:
+    vector<int> slots;
+
+public:
+    ParkingSystem(int big, int medium, int small) {
+        // Index 1 = big, Index 2 = medium, Index 3 = small
+        slots = {0, big, medium, small};
+    }
+    
+    bool addCar(int carType) {
+        // If there are slots available for the given car type
+        if (slots[carType] > 0) {
+            slots[carType]--; // Occupy one slot
+            return true;
+        }
+        return false; // No slots available
+    }
+};
