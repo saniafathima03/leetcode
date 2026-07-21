@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool checkIfPangram(string sentence) {
+        // Quick check: if the length is less than 26, it can't contain all alphabet letters.
+        if (sentence.length() < 26) {
+            return false;
+        }
+
+        unordered_set<char> unique_chars(sentence.begin(), sentence.end());
+        
+        return unique_chars.size() == 26;
+    }
+};
