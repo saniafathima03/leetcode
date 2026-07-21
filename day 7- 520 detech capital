@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool detectCapitalUse(string word) {
+        int capitals = 0;
+        
+        for (char c : word) {
+            if (isupper(c)) {
+                capitals++;
+            }
+        }
+
+        // Case 1: All uppercase
+        if (capitals == word.length()) {
+            return true;
+        }
+
+        // Case 2: All lowercase
+        if (capitals == 0) {
+            return true;
+        }
+
+        // Case 3: Only the first letter is uppercase
+        if (capitals == 1 && isupper(word[0])) {
+            return true;
+        }
+
+        return false;
+    }
+};
