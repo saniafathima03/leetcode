@@ -1,0 +1,13 @@
+class Solution {
+public:
+    string toLowerCase(string s) {
+        for (char &c : s) {
+            // Check if the character is an uppercase letter
+            if (c >= 'A' && c <= 'Z') {
+                // Convert uppercase to lowercase using ASCII difference
+                c = c + ('a' - 'A'); // Equivalent to: c += 32
+            }
+        }
+        return s;
+    }
+};
