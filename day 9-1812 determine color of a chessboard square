@@ -1,0 +1,11 @@
+class Solution {
+public:
+    bool squareIsWhite(string coordinates) {
+        // Convert column ('a'-'h') to 1-8 and row ('1'-'8') to 1-8
+        int col = coordinates[0] - 'a' + 1;
+        int row = coordinates[1] - '0';
+        
+        // If the sum of row and column indices is odd, the square is white
+        return (col + row) % 2 != 0;
+    }
+};
