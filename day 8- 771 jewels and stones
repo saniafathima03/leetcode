@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int numJewelsInStones(string jewels, string stones) {
+        // Store all jewel types in a hash set for O(1) lookup
+        unordered_set<char> jewelSet(jewels.begin(), jewels.end());
+        
+        int count = 0;
+        // Count how many stones are in the jewel set
+        for (char s : stones) {
+            if (jewelSet.count(s)) {
+                count++;
+            }
+        }
+        
+        return count;
+    }
+};
