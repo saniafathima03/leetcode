@@ -1,0 +1,41 @@
+#include <vector>
+#include <string>
+#include <cctype>
+
+class Solution {
+public:
+    std::vector<std::string> findWords(std::vector<std::string>& words) {
+        // Map each English lowercase letter to its row index (0, 1, or 2)
+        std::vector<int> rowMap(26, 0);
+        
+        std::string row1 = "qwertyuiop";
+        std::string row2 = "asdfghjkl";
+        std::string row3 = "zxcvbnm";
+        
+        for (char c : row1) rowMap[c - 'a'] = 0;
+        for (char c : row2) rowMap[c - 'a'] = 1;
+        for (char c : row3) rowMap[c - 'a'] = 2;
+        
+        std::vector<std::string> result;
+        
+        for (const std::string& word : words) {
+            // Get the row index of the first character
+            int targetRow = rowMap[std::tolower(word[0]) - 'a'];
+            bool sameRow = true;
+            
+            // Check if all characters belong to the same row
+            for (char c : word) {
+                if (rowMap[std::tolower(c) - 'a'] != targetRow) {
+                    sameRow = false;
+                    break;
+                }
+            }
+            
+            if (sameRow) {
+                result.push_back(word);
+            }
+        }
+        
+        return result;
+    }
+};
